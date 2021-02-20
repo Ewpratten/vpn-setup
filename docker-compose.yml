@@ -29,6 +29,9 @@ services:
     environment:
       TZ: "America/Toronto"
       WEBPASSWORD: "pihole_access"
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
     networks:
       inter_br:
       dns_br:
@@ -65,7 +68,7 @@ services:
     volumes:
       - ./config/coredns/Corefile:/Corefile
     ports:
-      - 53:5300/udp
+      - 53:53/udp
     networks:
       inter_br:
       dns_br:
