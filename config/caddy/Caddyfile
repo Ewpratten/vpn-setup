@@ -14,6 +14,10 @@ http://localhost:4430 {
         }
     }
 
+    basicauth /pihole/* {
+        ewpratten JDJhJDA0JG1iRXhKRTZrUFYyOWRuZVNKclhHVi54S3d0M0tFQ0ZyUDk2Z0N2Tm1tY3JzcC9tQmJ3dUdX
+    }
+
     route /pihole/* {
         uri replace /pihole /admin
         reverse_proxy http://pihole

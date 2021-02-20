@@ -12,3 +12,6 @@ scrape_configs:
   - job_name: coredns
     static_configs:
       - targets: ["coredns:9153"]
+  - job_name: pihole
+    static_configs:
+      - targets: ["pihole:9617"]

@@ -28,11 +28,21 @@ services:
       - ./config/pihole/data:/etc/pihole
     environment:
       TZ: 'America/Toronto'
-      # WEBPASSWORD: ''
+      WEBPASSWORD: 'pihole_access'
     networks:
       inter_br:
       dns_br:
         ipv4_address: 10.5.0.5
+
+  pihole_monitoring:
+    image: ekofr/pihole-exporter:latest
+    environment: 
+      PIHOLE_HOSTNAME: 'pihole'
+      PIHOLE_PASSWORD: 'pihole_access'
+      INTERVAL: '30s'
+      PORT: '9617'
+    networks:
+      inter_br:
 
   caddy:
     image: caddy:2
