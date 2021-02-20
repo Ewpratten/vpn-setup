@@ -27,8 +27,8 @@ services:
       - pihole_dnsmasq:/etc/dnsmasq.d
       - ./config/pihole/data:/etc/pihole
     environment:
-      TZ: 'America/Toronto'
-      WEBPASSWORD: 'pihole_access'
+      TZ: "America/Toronto"
+      WEBPASSWORD: "pihole_access"
     networks:
       inter_br:
       dns_br:
@@ -36,11 +36,11 @@ services:
 
   pihole_monitoring:
     image: ekofr/pihole-exporter:latest
-    environment: 
-      PIHOLE_HOSTNAME: 'pihole'
-      PIHOLE_PASSWORD: 'pihole_access'
-      INTERVAL: '30s'
-      PORT: '9617'
+    environment:
+      PIHOLE_HOSTNAME: "pihole"
+      PIHOLE_PASSWORD: "pihole_access"
+      INTERVAL: "30s"
+      PORT: "9617"
     networks:
       inter_br:
 
@@ -70,6 +70,18 @@ services:
       inter_br:
       dns_br:
         ipv4_address: 10.5.0.6
+
+  openvpn:
+    cap_add:
+      - NET_ADMIN
+    image: kylemanna/openvpn
+    ports:
+      - 8080:80
+    restart: always
+    volumes:
+      - ./config/openvpn/data:/etc/openvpn
+    networks:
+      inter_br:
 
 volumes:
   prometheus_data:
