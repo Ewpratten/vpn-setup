@@ -3,9 +3,8 @@ http://caddy:2018 {
     metrics
 }
 
-http://localhost:4430 {
-# s2.retrylife.ca {
-    
+# http://localhost:4430 {
+s2.retrylife.ca {
 
     route /monitor/* {
         uri strip_prefix /monitor
