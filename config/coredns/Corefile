@@ -1,5 +1,7 @@
 . {
-    forward . 10.5.0.5
+    forward . 10.5.0.5 1.1.1.1 {
+        policy sequential
+    }
     log
     errors
     cache 60
