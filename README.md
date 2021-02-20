@@ -12,5 +12,6 @@ This repo contains the scripts and docker configuration required to replicate my
 
 ```sh
 ./scripts/openvpn-init.sh
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo docker-compose up --detach
 ```
