@@ -74,26 +74,26 @@ services:
       dns_br:
         ipv4_address: 10.5.0.6
 
-  openvpn:
-    cap_add:
-      - NET_ADMIN
-    image: kylemanna/openvpn
-    ports:
-      - 80:1194
-    restart: always
-    volumes:
-      - ./config/openvpn/data:/etc/openvpn
-      - ./config/openvpn/tmp:/tmp
-    networks:
-      inter_br:
+  # openvpn:
+  #   cap_add:
+  #     - NET_ADMIN
+  #   image: kylemanna/openvpn
+  #   ports:
+  #     - 80:1194
+  #   restart: always
+  #   volumes:
+  #     - ./config/openvpn/data:/etc/openvpn
+  #     - ./config/openvpn/tmp:/tmp
+  #   networks:
+  #     inter_br:
   
-  openvpn_monitoring:
-    image: kumina/openvpn-exporter
-    depends_on:
-      - openvpn
-    volumes:
-      - ./config/openvpn/tmp/openvpn-status.log:/etc/openvpn_exporter/server.status:ro
-    command: /bin/openvpn_exporter -openvpn.status_paths /etc/openvpn_exporter/server.status
+  # openvpn_monitoring:
+  #   image: kumina/openvpn-exporter
+  #   depends_on:
+  #     - openvpn
+  #   volumes:
+  #     - ./config/openvpn/tmp/openvpn-status.log:/etc/openvpn_exporter/server.status:ro
+  #   command: /bin/openvpn_exporter -openvpn.status_paths /etc/openvpn_exporter/server.status
 
 volumes:
   prometheus_data:
