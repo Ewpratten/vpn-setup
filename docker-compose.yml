@@ -8,28 +8,71 @@ services:
       - prometheus_data:/prometheus
     ports:
       - 9090:9090
-   
+    networks:
+      inter_br:
+
   grafana:
     image: grafana/grafana:latest
-    depends_on: 
+    depends_on:
       - prometheus
     volumes:
       - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
       - grafana_data:/var/lib/grafana
+    networks:
+      inter_br:
+
+  pihole:
+    image: pihole/pihole:latest
+    volumes:
+      - pihole_dnsmasq:/etc/dnsmasq.d
+      - ./config/pihole/data:/etc/pihole
+    environment:
+      TZ: 'America/Toronto'
+      # WEBPASSWORD: ''
+    networks:
+      inter_br:
+      dns_br:
+        ipv4_address: 10.5.0.5
 
   caddy:
     image: caddy:2
-    depends_on: 
+    depends_on:
       - grafana
+      - pihole
     volumes:
       - caddy_config:/config
       - caddy_data:/data
       - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile
     ports:
       - 4430:4430
+    networks:
+      inter_br:
+
+  coredns:
+    image: coredns/coredns:latest
+    depends_on:
+      - pihole
+    volumes:
+      - ./config/coredns/Corefile:/Corefile
+    ports:
+      - 5300:5300/udp
+    networks:
+      inter_br:
+      dns_br:
+        ipv4_address: 10.5.0.6
 
 volumes:
   prometheus_data:
   caddy_config:
   caddy_data:
   grafana_data:
+  pihole_dnsmasq:
+
+networks:
+  inter_br:
+    driver: bridge
+  dns_br:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16

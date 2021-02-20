@@ -14,4 +14,9 @@ http://localhost:4430 {
         }
     }
 
+    route /pihole/* {
+        uri replace /pihole /admin
+        reverse_proxy http://pihole
+    }
+
 }
