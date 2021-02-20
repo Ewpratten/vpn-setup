@@ -80,9 +80,17 @@ services:
     restart: always
     volumes:
       - ./config/openvpn/data:/etc/openvpn
-      - ./config/openvpn/vpn.status:/tmp/openvpn-status.log
+      - ./config/openvpn/tmp:/tmp
     networks:
       inter_br:
+  
+  openvpn_monitoring:
+    image: kumina/openvpn-exporter
+    depends_on:
+      - openvpn
+    volumes:
+      - ./config/openvpn/tmp/openvpn-status.log:/etc/openvpn_exporter/server.status:ro
+    command: /bin/openvpn_exporter -openvpn.status_paths /etc/openvpn_exporter/server.status
 
 volumes:
   prometheus_data:
