@@ -76,10 +76,11 @@ services:
       - NET_ADMIN
     image: kylemanna/openvpn
     ports:
-      - 8080:80
+      - 8080:1194
     restart: always
     volumes:
       - ./config/openvpn/data:/etc/openvpn
+      - ./config/openvpn/vpn.status:/tmp/openvpn-status.log
     networks:
       inter_br:
 
