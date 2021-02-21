@@ -22,4 +22,15 @@ s2.retrylife.ca {
         reverse_proxy http://pihole
     }
 
+    basicauth /prometheus/* {
+        ewpratten JDJhJDA0JG1iRXhKRTZrUFYyOWRuZVNKclhHVi54S3d0M0tFQ0ZyUDk2Z0N2Tm1tY3JzcC9tQmJ3dUdX
+    }
+
+    route /prometheus/* {
+        uri strip_prefix /prometheus
+        reverse_proxy prometheus:9090 {
+            header_up Host {host}
+        }
+    }
+
 }
