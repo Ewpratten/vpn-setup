@@ -47,20 +47,6 @@ services:
     networks:
       inter_br:
 
-  caddy:
-    image: caddy:2
-    depends_on:
-      - grafana
-      - pihole
-    volumes:
-      - caddy_config:/config
-      - caddy_data:/data
-      - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile
-    ports:
-      - 443:443
-    networks:
-      inter_br:
-
   coredns:
     image: coredns/coredns:latest
     depends_on:
@@ -73,6 +59,30 @@ services:
       inter_br:
       dns_br:
         ipv4_address: 10.5.0.6
+
+  doh_proxy:
+    build: ./config/doh_proxy
+    depends_on: 
+      - coredns
+    networks:
+      inter_br:
+      dns_br:
+        ipv4_address: 10.5.0.7
+
+  caddy:
+    image: caddy:2
+    depends_on:
+      - grafana
+      - pihole
+      - doh_proxy
+    volumes:
+      - caddy_config:/config
+      - caddy_data:/data
+      - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - 443:443
+    networks:
+      inter_br:
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
