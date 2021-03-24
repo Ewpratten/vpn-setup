@@ -2,4 +2,4 @@ FROM rust:1.50
 
 RUN cargo install doh-proxy --no-default-features
 
-CMD ["doh-proxy", "--listen-address", "0.0.0.0:80", "--server-address", "10.5.0.6:53", "--hostname", "dns.retrylife.ca"]
+CMD ["doh-proxy", "--listen-address", "0.0.0.0:80", "--server-address", "10.5.0.6:53"]
