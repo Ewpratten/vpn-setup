@@ -34,3 +34,11 @@ s2.retrylife.ca {
     }
 
 }
+
+dns.retrylife.ca {
+    route /* {
+        reverse_proxy doh_proxy:3000 {
+            header_up Host {host}
+        }
+    }
+}
