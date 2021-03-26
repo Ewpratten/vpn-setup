@@ -79,6 +79,7 @@ services:
     restart: unless-stopped
     depends_on:
       - coredns
+    command: ["-C", "/etc/dnsdist/dnsdist.conf"]
     volumes:
       - ./config/dnsdist/dnsdist.conf:/etc/dnsdist/dnsdist.conf:ro
     networks:
