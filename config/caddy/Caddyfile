@@ -36,5 +36,5 @@ s2.retrylife.ca {
 }
 
 dns.retrylife.ca {
-    reverse_proxy http://doh_proxy
+    reverse_proxy dnsdist:8053
 }

@@ -3,6 +3,7 @@ version: "3.4"
 services:
   prometheus:
     image: prom/prometheus:latest
+    restart: unless-stopped
     volumes:
       - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
@@ -13,6 +14,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    restart: unless-stopped
     depends_on:
       - prometheus
     volumes:
@@ -23,6 +25,7 @@ services:
 
   pihole:
     image: pihole/pihole:latest
+    restart: unless-stopped
     volumes:
       - pihole_dnsmasq:/etc/dnsmasq.d
       - ./config/pihole/data:/etc/pihole
@@ -39,6 +42,7 @@ services:
 
   pihole_monitoring:
     image: ekofr/pihole-exporter:latest
+    restart: unless-stopped
     environment:
       PIHOLE_HOSTNAME: "pihole"
       PIHOLE_PASSWORD: "pihole_access"
@@ -53,6 +57,7 @@ services:
       - pihole
     volumes:
       - ./config/coredns/Corefile:/Corefile
+    restart: unless-stopped
     ports:
       - 53:53/udp
     networks:
@@ -60,10 +65,22 @@ services:
       dns_br:
         ipv4_address: 10.5.0.6
 
-  doh_proxy:
-    build: ./config/doh_proxy
-    depends_on: 
+  # doh_proxy:
+  #   build: ./config/doh_proxy
+  #   depends_on:
+  #     - coredns
+  #   networks:
+  #     inter_br:
+  #     dns_br:
+  #       ipv4_address: 10.5.0.7
+
+  dnsdist:
+    image: tcely/dnsdist
+    restart: unless-stopped
+    depends_on:
       - coredns
+    volumes:
+      - ./config/dnsdist/dnsdist.conf:/etc/dnsdist/dnsdist.conf:ro
     networks:
       inter_br:
       dns_br:
@@ -74,7 +91,8 @@ services:
     depends_on:
       - grafana
       - pihole
-      - doh_proxy
+      - dnsdist
+    restart: unless-stopped
     volumes:
       - caddy_config:/config
       - caddy_data:/data
