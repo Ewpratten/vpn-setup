@@ -117,6 +117,13 @@ services:
     networks:
       inter_br:
 
+  speedtest_exporter:
+    image: jraviles/prometheus_speedtest:latest
+    container_name: speedtest_exporter
+    restart: unless-stopped
+    networks:
+      inter_br:
+
   # openvpn:
   #   cap_add:
   #     - NET_ADMIN
