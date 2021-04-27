@@ -120,7 +120,6 @@ services:
   openvpn_exporter:
     build: ./config/openvpn-exporter/
     container_name: openvpn_exporter
-    pid: host
     restart: unless-stopped
     volumes:
       - /var/log/openvpn/status.log:/etc/openvpn_exporter/server.status
