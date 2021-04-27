@@ -10,4 +10,6 @@ WORKDIR /openvpn_exporter
 RUN make generate
 RUN make build
 
+RUN chmod +x ./cmd/openvpn_exporter
+
 CMD ["./cmd/openvpn_exporter", "--status-file", "/etc/openvpn_exporter/server.status"]
