@@ -121,7 +121,8 @@ services:
     image: kumina/openvpn-exporter:latest
     container_name: openvpn_exporter
     command:
-      - "-openvpn.status_paths /etc/openvpn_exporter/server.status"
+      - "-openvpn.status_paths"
+      - "/etc/openvpn_exporter/server.status"
     pid: host
     restart: unless-stopped
     volumes:
