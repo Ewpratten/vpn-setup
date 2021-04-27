@@ -1,4 +1,4 @@
 #! /bin/bash
 
-chmod +x ./cmd/openvpn_exporter
-./cmd/openvpn_exporter --status-file /etc/openvpn_exporter/server.status
+chmod +x ./bin/openvpn_exporter
+./bin/openvpn_exporter --status-file /etc/openvpn_exporter/server.status
