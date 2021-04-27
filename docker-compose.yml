@@ -118,11 +118,8 @@ services:
       inter_br:
 
   openvpn_exporter:
-    image: kumina/openvpn-exporter:latest
+    build: ./config/openvpn-exporter/
     container_name: openvpn_exporter
-    command:
-      - "-openvpn.status_paths"
-      - "/etc/openvpn_exporter/server.status"
     pid: host
     restart: unless-stopped
     volumes:
