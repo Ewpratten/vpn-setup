@@ -7,10 +7,11 @@ http://caddy:2018 {
 s2.retrylife.ca {
 
     route /monitor/* {
-        uri strip_prefix /monitor
-        reverse_proxy grafana:3000 {
-            header_up Host {host}
-        }
+        # uri strip_prefix /monitor
+        # reverse_proxy grafana:3000 {
+        #     header_up Host {host}
+        # }
+        redir https://dashboard.s2.retrylife.ca
     }
 
     basicauth /pihole/* {
@@ -33,6 +34,16 @@ s2.retrylife.ca {
         }
     }
 
+}
+
+admin.s2.retrylife.ca {
+    reverse_proxy localhost:9000
+}
+
+dashboard.s2.retrylife.ca {
+    reverse_proxy grafana:3000{
+        header_up Host {host}
+    }
 }
 
 dns.retrylife.ca {
