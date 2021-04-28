@@ -125,6 +125,13 @@ services:
       - /var/log/openvpn/status.log:/etc/openvpn_exporter/server.status
     networks:
       inter_br:
+  
+  rbn_exporter:
+    image: ewpratten/rbn_exporter:latest
+    container_name: rbn_exporter
+    restart: unless-stopped
+    networks:
+      inter_br:
 
   # speedtest_exporter:
   #   image: jraviles/prometheus_speedtest:latest
