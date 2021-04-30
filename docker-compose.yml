@@ -20,6 +20,8 @@ services:
     volumes:
       - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
       - grafana_data:/var/lib/grafana
+    environment: 
+      - GF_INSTALL_PLUGINS=marcusolsson-hourly-heatmap-panel
     networks:
       inter_br:
 
