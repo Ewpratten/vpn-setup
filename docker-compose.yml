@@ -132,6 +132,11 @@ services:
     restart: unless-stopped
     networks:
       inter_br:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.01'
+          memory: 50M
 
   # speedtest_exporter:
   #   image: jraviles/prometheus_speedtest:latest
