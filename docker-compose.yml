@@ -21,7 +21,7 @@ services:
       - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
       - grafana_data:/var/lib/grafana
     environment: 
-      - GF_INSTALL_PLUGINS=marcusolsson-hourly-heatmap-panel
+      - GF_INSTALL_PLUGINS=marcusolsson-hourly-heatmap-panel,grafana-piechart-panel
     networks:
       inter_br:
 
