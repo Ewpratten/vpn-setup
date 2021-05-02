@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 ovpn-certs/*.ovpn
+
+apps/cloudlog/config/*
