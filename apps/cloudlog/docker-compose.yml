@@ -9,7 +9,8 @@ services:
       - cloudlog_database:/var/lib/mysql
       - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
     networks:
-      - cloudlog_internal
+      cloudlog_internal:
+        ipv4_address: 10.5.0.3
     
   
   cloudlog:
@@ -22,8 +23,9 @@ services:
       - cloudlog_backup:/var/www/html/application/backup
       - cloudlog_uploads:/var/www/html/application/uploads
     networks:
-      - vpn-setup_app_br
-      - cloudlog_internal
+      vpn-setup_app_br:
+      cloudlog_internal:
+        ipv4_address: 10.5.0.2
 
 volumes: 
   cloudlog_database:
@@ -33,5 +35,8 @@ volumes:
 networks: 
   cloudlog_internal:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.6.0.0/16
   vpn-setup_app_br:
     external: true

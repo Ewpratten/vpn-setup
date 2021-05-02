@@ -76,7 +76,7 @@ $query_builder = TRUE;
 $db['default'] = array(
 	// The following values will probably need to be changed.
 	'dsn'	=> '',
-	'hostname' => 'mysql',
+	'hostname' => '10.5.0.3',
 	'username' => 'root',
 	'password' => '',
 	'database' => 'cloudlog',
