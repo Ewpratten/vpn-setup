@@ -67,15 +67,6 @@ services:
       dns_br:
         ipv4_address: 10.5.0.6
 
-  # doh_proxy:
-  #   build: ./config/doh_proxy
-  #   depends_on:
-  #     - coredns
-  #   networks:
-  #     inter_br:
-  #     dns_br:
-  #       ipv4_address: 10.5.0.7
-
   dnsdist:
     build: ./config/dnsdist
     tty: true
@@ -106,6 +97,7 @@ services:
       - 443:443
     networks:
       inter_br:
+      app_br:
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:latest
@@ -140,32 +132,7 @@ services:
           cpus: '0.01'
           memory: 50M
 
-  # speedtest_exporter:
-  #   image: jraviles/prometheus_speedtest:latest
-  #   container_name: speedtest_exporter
-  #   restart: unless-stopped
-  #   networks:
-  #     inter_br:
-
-  # openvpn:
-  #   cap_add:
-  #     - NET_ADMIN
-  #   image: kylemanna/openvpn
-  #   ports:
-  #     - 80:1194
-  #   restart: always
-  #   volumes:
-  #     - ./config/openvpn/data:/etc/openvpn
-  #     - ./config/openvpn/tmp:/tmp
-  #   networks:
-  #     inter_br:
-  # openvpn_monitoring:
-  #   image: kumina/openvpn-exporter
-  #   depends_on:
-  #     - openvpn
-  #   volumes:
-  #     - ./config/openvpn/tmp/openvpn-status.log:/etc/openvpn_exporter/server.status:ro
-  #   command: /bin/openvpn_exporter -openvpn.status_paths /etc/openvpn_exporter/server.status
+  
 
 volumes:
   prometheus_data:
@@ -174,8 +141,11 @@ volumes:
   grafana_data:
   pihole_dnsmasq:
 
+
 networks:
   inter_br:
+    driver: bridge
+  app_br:
     driver: bridge
   dns_br:
     driver: bridge

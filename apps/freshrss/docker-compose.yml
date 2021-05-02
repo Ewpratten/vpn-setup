@@ -1,0 +1,22 @@
+version: "3.4"
+
+services:
+  freshrss:
+    image: ghcr.io/linuxserver/freshrss
+    container_name: freshrss
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - freshrss_data:/config
+    networks:
+      - vpn-setup_app_br
+
+volumes:
+  freshrss_data:
+
+networks: 
+  vpn-setup_app_br:
+    external: true

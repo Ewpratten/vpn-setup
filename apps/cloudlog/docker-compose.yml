@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  cloudlog:
+    image: waarlandit/cloudlog
+    container_name: cloudlog
+    volumes:
+      - ./config:/var/www/html/application/config
+      - cloudlog_backup:/var/www/html/application/backup
+      - cloudlog_uploads:/var/www/html/application/uploads
+    networks:
+      - vpn-setup_app_br
+      - cloudlog_internal
+  mysql:
+    image: mariadb:10.3
+    environment:
+       - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - cloudlog_database:/var/lib/mysql
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+    networks:
+      - cloudlog_internal
+
+volumes: 
+  cloudlog_database:
+  cloudlog_backup:
+  cloudlog_uploads:
+
+networks: 
+  cloudlog_internal:
+    driver: bridge
+  vpn-setup_app_br:
+    external: true

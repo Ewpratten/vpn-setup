@@ -3,7 +3,7 @@ http://caddy:2018 {
     metrics
 }
 
-# http://localhost:4430 {
+# Core S2 domain
 s2.retrylife.ca {
 
     route /monitor/* {
@@ -36,14 +36,54 @@ s2.retrylife.ca {
 
 }
 
+# Administration domain
 admin.s2.retrylife.ca {
     reverse_proxy localhost:9000
 }
 
+# Dashboards
 dashboard.s2.retrylife.ca {
     reverse_proxy grafana:3000
 }
 
+# Dns
 dns.retrylife.ca {
     reverse_proxy dnsdist:8053
+}
+
+# RSS aggregator
+rss.s2.retrylife.ca {
+    reverse_proxy freshrss:80
+}
+
+# Maven servers
+release.maven.retrylife.ca {
+    route /* {
+        rewrite * /maven/release/{path}
+        reverse_proxy https://ewpratten.keybase.pub {
+            header_up Host ewpratten.keybase.pub
+        }
+    }
+}
+snapshot.maven.retrylife.ca {
+    route /* {
+        rewrite * /maven/snapshot/{path}
+        reverse_proxy https://ewpratten.keybase.pub {
+            header_up Host ewpratten.keybase.pub
+        }
+    }
+}
+
+# Radio logbook
+cloudlog.s2.retrylife.ca {
+    route /* {
+        reverse_proxy cloudlog:80 {
+            header_up Host {host}
+        }
+    }
+    route /assets/* {
+        reverse_proxy cloudlog:80 {
+            header_up Host {host}
+        }
+    }
 }
