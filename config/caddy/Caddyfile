@@ -7,10 +7,6 @@ http://caddy:2018 {
 s2.retrylife.ca {
 
     route /monitor/* {
-        # uri strip_prefix /monitor
-        # reverse_proxy grafana:3000 {
-        #     header_up Host {host}
-        # }
         redir https://dashboard.s2.retrylife.ca
     }
 
@@ -57,22 +53,22 @@ rss.s2.retrylife.ca {
 }
 
 # Maven servers
-release.maven.retrylife.ca {
-    route /* {
-        rewrite * /maven/release/{path}
-        reverse_proxy https://ewpratten.keybase.pub {
-            header_up Host ewpratten.keybase.pub
-        }
-    }
-}
-snapshot.maven.retrylife.ca {
-    route /* {
-        rewrite * /maven/snapshot/{path}
-        reverse_proxy https://ewpratten.keybase.pub {
-            header_up Host ewpratten.keybase.pub
-        }
-    }
-}
+# release.maven.retrylife.ca {
+#     route /* {
+#         rewrite * /maven/release/{path}
+#         reverse_proxy https://ewpratten.keybase.pub {
+#             header_up Host ewpratten.keybase.pub
+#         }
+#     }
+# }
+# snapshot.maven.retrylife.ca {
+#     route /* {
+#         rewrite * /maven/snapshot/{path}
+#         reverse_proxy https://ewpratten.keybase.pub {
+#             header_up Host ewpratten.keybase.pub
+#         }
+#     }
+# }
 
 # Radio logbook
 cloudlog.s2.retrylife.ca {
