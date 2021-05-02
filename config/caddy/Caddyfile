@@ -53,22 +53,31 @@ rss.s2.retrylife.ca {
 }
 
 # Maven servers
-# release.maven.retrylife.ca {
-#     route /* {
-#         rewrite * /maven/release/{path}
-#         reverse_proxy https://ewpratten.keybase.pub {
-#             header_up Host ewpratten.keybase.pub
-#         }
-#     }
-# }
-# snapshot.maven.retrylife.ca {
-#     route /* {
-#         rewrite * /maven/snapshot/{path}
-#         reverse_proxy https://ewpratten.keybase.pub {
-#             header_up Host ewpratten.keybase.pub
-#         }
-#     }
-# }
+release.maven.retrylife.ca {
+    route /* {
+        rewrite * /maven/release/{path}
+        reverse_proxy https://ewpratten.keybase.pub {
+            header_up Host ewpratten.keybase.pub
+        }
+    }
+}
+snapshot.maven.retrylife.ca {
+    route /* {
+        rewrite * /maven/snapshot/{path}
+        reverse_proxy https://ewpratten.keybase.pub {
+            header_up Host ewpratten.keybase.pub
+        }
+    }
+}
+
+# File server
+files.retrylife.ca {
+    route /* {
+        reverse_proxy https://ewpratten.keybase.pub {
+            header_up Host ewpratten.keybase.pub
+        }
+    }
+}
 
 # Radio logbook
 cloudlog.s2.retrylife.ca {
