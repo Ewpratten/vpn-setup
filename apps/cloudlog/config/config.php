@@ -29,7 +29,7 @@ $config['callbook'] = "hamqth"; // Options are hamqth or qrz
 */
 
 $config['table_name'] = "TABLE_HRD_CONTACTS_V01"; 
-$config['locator'] = "IO91JS"; 
+$config['locator'] = "EN92JX"; 
 $config['display_freq'] = false;
 
 
@@ -129,7 +129,7 @@ $config['index_page'] = 'index.php';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']	= 'QUERY_STRING';
 
 /*
 |--------------------------------------------------------------------------
