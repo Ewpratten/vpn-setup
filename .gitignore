@@ -130,4 +130,3 @@ dmypy.json
 
 ovpn-certs/*.ovpn
 
-apps/cloudlog/config/*
