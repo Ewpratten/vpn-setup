@@ -11,6 +11,11 @@ services:
     #   - 9090:9090
     networks:
       inter_br:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 80M
 
   grafana:
     image: grafana/grafana:latest
@@ -24,6 +29,11 @@ services:
       - GF_INSTALL_PLUGINS=marcusolsson-hourly-heatmap-panel,grafana-piechart-panel
     networks:
       inter_br:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 80M
 
   pihole:
     image: pihole/pihole:latest
