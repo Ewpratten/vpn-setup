@@ -52,16 +52,16 @@ services:
       dns_br:
         ipv4_address: 10.5.0.5
 
-  pihole_monitoring:
-    image: ekofr/pihole-exporter:latest
-    restart: unless-stopped
-    environment:
-      PIHOLE_HOSTNAME: "pihole"
-      PIHOLE_PASSWORD: "pihole_access"
-      INTERVAL: "30s"
-      PORT: "9617"
-    networks:
-      inter_br:
+  # pihole_monitoring:
+  #   image: ekofr/pihole-exporter:latest
+  #   restart: unless-stopped
+  #   environment:
+  #     PIHOLE_HOSTNAME: "pihole"
+  #     PIHOLE_PASSWORD: "pihole_access"
+  #     INTERVAL: "30s"
+  #     PORT: "9617"
+  #   networks:
+  #     inter_br:
 
   coredns:
     image: coredns/coredns:latest
@@ -109,26 +109,26 @@ services:
       inter_br:
       app_br:
 
-  node_exporter:
-    image: quay.io/prometheus/node-exporter:latest
-    container_name: node_exporter
-    command:
-      - "--path.rootfs=/host"
-    pid: host
-    restart: unless-stopped
-    volumes:
-      - "/:/host:ro,rslave"
-    networks:
-      inter_br:
+  # node_exporter:
+  #   image: quay.io/prometheus/node-exporter:latest
+  #   container_name: node_exporter
+  #   command:
+  #     - "--path.rootfs=/host"
+  #   pid: host
+  #   restart: unless-stopped
+  #   volumes:
+  #     - "/:/host:ro,rslave"
+  #   networks:
+  #     inter_br:
 
-  openvpn_exporter:
-    build: ./config/openvpn-exporter/
-    container_name: openvpn_exporter
-    restart: unless-stopped
-    volumes:
-      - /var/log/openvpn/status.log:/etc/openvpn_exporter/server.status
-    networks:
-      inter_br:
+  # openvpn_exporter:
+  #   build: ./config/openvpn-exporter/
+  #   container_name: openvpn_exporter
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /var/log/openvpn/status.log:/etc/openvpn_exporter/server.status
+  #   networks:
+  #     inter_br:
   
   rbn_exporter:
     image: ewpratten/rbn_exporter:latest
