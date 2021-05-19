@@ -93,11 +93,11 @@ cloudlog.s2.retrylife.ca {
     }
 }
 
-# Status page
-status.s2.retrylife.ca {
-    route /* {
-        reverse_proxy vigil:8080 {
-            header_up Host {host}
-        }
-    }
-}
+# # Status page
+# status.s2.retrylife.ca {
+#     route /* {
+#         reverse_proxy vigil:8080 {
+#             header_up Host {host}
+#         }
+#     }
+# }

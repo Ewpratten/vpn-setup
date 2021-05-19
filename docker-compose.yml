@@ -109,13 +109,13 @@ services:
       inter_br:
       app_br:
 
-  vigil:
-    image: valeriansaliou/vigil:v1.21.1
-    restart: unless-stopped
-    volumes:
-      - ./config/vigil/config.cfg:/etc/vigil.cfg
-    networks:
-      inter_br:
+  # vigil:
+  #   image: valeriansaliou/vigil:v1.21.1
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./config/vigil/config.cfg:/etc/vigil.cfg
+  #   networks:
+  #     inter_br:
 
   # node_exporter:
   #   image: quay.io/prometheus/node-exporter:latest

@@ -1,0 +1,14 @@
+version: "3.4"
+
+services:
+  statping:
+    image: statping/statping
+    container_name: statping
+    restart: unless-stopped
+    ports:
+      - 8872:8080
+    volumes:
+      - statping_data:/app
+
+volumes:
+  statping_data:
